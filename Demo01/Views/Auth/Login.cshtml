@@ -1,21 +1,60 @@
-﻿@if (ViewData.ContainsKey("notification"))
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+@model AuthLoginForm
+
+@* @if (ViewData.ContainsKey("notification"))
 {
     <div class="alert alert-danger">
         @ViewData["notification"].ToString()
     </div>
+} *@
+
+@{
+    ModelStateDictionary modelState = ViewContext.ModelState;
+}
+
+@* @if (!modelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <p>Attention : @modelState.ErrorCount erreur@((modelState.ErrorCount>1)?"s":"") :</p>
+        <ul>
+        @foreach (KeyValuePair<string,ModelStateEntry> entry in modelState)
+        {
+                if(entry.Value.Errors.Count > 0)
+                {
+                    <li>@entry.Key: 
+                        <ul>
+                            @foreach (ModelError error in entry.Value.Errors)
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        </ul>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+} *@
+
+@if (!modelState.IsValid)
+{
+<div class="alert alert-danger">
+    Attention : @modelState.ErrorCount erreur@((modelState.ErrorCount>1)?"s":"") :
+</div>    
 }
 
 <h1>Veuillez vous identifier :</h1>
-<form method="post">
-    <div>
-        <label for="login">Login :</label>
-        <input type="text" id="login" name="login" required />
+@using(Html.BeginForm()){
+    <div class="form-group">
+        @Html.LabelFor(m => m.Login)
+        @Html.EditorFor(m => m.Login,new {@class="form-control"})
+        @Html.ValidationMessageFor(m => m.Login,null,new { @class="text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.EditorFor(m => m.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
     </div>
     <div>
-        <label for="pwd">Mot de passe :</label>
-        <input type="password" id="pwd" name="password" required />
+        <button type="submit" class="btn btn-primary">Se connecter</button>
     </div>
-    <div>
-        <button type="submit">Se connecter</button>
-    </div>
-</form>
+}
