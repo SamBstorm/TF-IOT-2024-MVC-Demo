@@ -1,0 +1,5 @@
+﻿@model StudentDetailsViewModel
+<h1>@Model.Last_Name, @Model.First_Name</h1>
+<h2>@Model.Login (@Model.Student_Id)</h2>
+<p>Né le @Model.Birth_Date.ToString("dd/MM/yyyy")</p>
+<p>Résultat : @(Model.Year_Result*5) %</p>

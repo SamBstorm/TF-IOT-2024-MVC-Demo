@@ -1,0 +1,30 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    // int size = (int)ViewData["size"];
+    int size = ViewBag.size;
+    void CreateCell(string color)
+    {
+        <td style="background-color : @color; width:32px; height:32px;"></td>
+    }
+}
+<table>
+    <tbody>
+        @for(int row = 0; row < size; row++){
+            <tr>
+                @for(int cell = 0; cell < size; cell++)
+                {
+                    if((row + cell) % 2 != 0)
+                    {
+                        CreateCell("black");
+                    }
+                    else
+                    {
+                        CreateCell("rgb(200,200,200)");
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>

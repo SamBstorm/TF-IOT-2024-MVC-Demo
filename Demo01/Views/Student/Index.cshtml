@@ -1,0 +1,7 @@
+﻿@if (TempData.ContainsKey("notification"))
+{
+    <div class="alert alert-success">
+        @TempData["notification"].ToString()
+    </div>
+}
+<h1>Gestion des étudiants</h1>

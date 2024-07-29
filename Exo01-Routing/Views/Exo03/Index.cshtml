@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    string[] TEXTS = ["Plus de stock","Quantité limitée","En stock"];
+    string[] COLORS = [ "red", "orange", "green" ];
+    // uint quantity = (uint)ViewData["Quantity"];
+    uint quantity = ViewBag.Quantity;
+    int currentValue = (quantity <= 0) ? 0 : (quantity < 5) ? 1 : 2;
+}
+
+@* @if (quantity <= 0)
+{
+    <p style="color : red">Plus de stock</p>
+}
+else if (quantity < 5){
+    <p style="color : orange">Quantité limitée</p>
+}
+else
+{
+    <p style="color : green">En stock</p>
+} *@
+
+<p style="color : @COLORS[currentValue]">@TEXTS[currentValue]</p>
+
+@switch (currentValue)
+{
+    case 1 :
+        <select>
+            @for (int i = 1; i <= quantity; i++)
+            {
+                <option>@i</option>
+            }
+        </select>
+        break;
+    case 2 :
+        <div>
+            <label for="qty">Quantité :</label>
+            <input type="number" id="qty" min="1" max="@quantity"/>
+        </div>
+        break;
+}
