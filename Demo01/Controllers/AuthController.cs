@@ -14,7 +14,8 @@ namespace Demo01.Controllers
         [Route("SeConnecter")]
         public IActionResult Login()
         {
-            return View();
+            //return View("LoginHtmlHelpers");
+            return View("LoginTagHelpers");
         }
         [Route("SeConnecter")]
         [HttpPost]
@@ -27,7 +28,8 @@ namespace Demo01.Controllers
                 return RedirectToAction(nameof(Index), "Student");
             }
             ViewData["notification"] = "Connection échouée";
-            return View(form);
+            //return View("LoginHtmlHelpers", form);
+            return View("LoginTagHelpers", form);
         }
 
         [NonAction]

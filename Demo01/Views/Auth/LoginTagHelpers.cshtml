@@ -1,0 +1,67 @@
+﻿@model AuthLoginForm
+
+@* @if (ViewData.ContainsKey("notification"))
+{
+    <div class="alert alert-danger">
+        @ViewData["notification"].ToString()
+    </div>
+} *@
+
+@{
+    Layout = "_LayoutNoNav";
+    ModelStateDictionary modelState = ViewContext.ModelState;
+}
+
+@* @if (!modelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <p>Attention : @modelState.ErrorCount erreur@((modelState.ErrorCount>1)?"s":"") :</p>
+        <ul>
+        @foreach (KeyValuePair<string,ModelStateEntry> entry in modelState)
+        {
+                if(entry.Value.Errors.Count > 0)
+                {
+                    <li>@entry.Key: 
+                        <ul>
+                            @foreach (ModelError error in entry.Value.Errors)
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        </ul>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+} *@
+
+@section CSS{
+    <link type="text/css" rel="stylesheet" href="~/css/loginStyle.css" />
+}
+
+@if (!modelState.IsValid)
+{
+<div class="alert alert-danger">
+    Attention : @modelState.ErrorCount erreur@((modelState.ErrorCount>1)?"s":"") :
+</div>    
+}
+@if (!modelState.IsValid)
+{
+    <div asp-validation-summary="All" class="alert alert-danger"></div>
+}
+<h1>Veuillez vous identifier :</h1>
+<form method="post" asp-action="Login" asp-controller="Auth">
+    <div class="form-group">
+        <label asp-for="Login" class="control-label"></label>
+        <input asp-for="Login" class = "form-control" />
+        <span asp-validation-for="Login" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+    </div>
+</form>

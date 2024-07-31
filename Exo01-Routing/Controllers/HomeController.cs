@@ -31,15 +31,19 @@ namespace Exo01_Routing.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
         //Action d'affichage du formulaire : méthode GET
+        [HttpGet("/Home/Register")]
+        [HttpGet("/Register")]
+        [HttpGet("/Sinscrire")]
         public IActionResult Register()
         {
             return View();
         }
 
         //Action de traitement du formulaire : méthode POST
-        [HttpPost]
+        [HttpPost("/Home/Register")]
+        [HttpPost("/Register")]
+        [HttpPost("/Sinscrire")]
         public IActionResult Register(HomeRegisterForm form)
         {
             ValidateHomeRegisterForm(form, ModelState);
